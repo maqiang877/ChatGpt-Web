@@ -5,7 +5,7 @@ export interface Paging {
 
 export interface TableData<T> {
   count: number
-  rows: T
+  rows: Array<T>
 }
 
 export interface CarmiInfo {
@@ -77,9 +77,13 @@ export interface MessageInfo {
   temperature: number
   parent_message_id: string
   status: number
+  persona_id?: string | number
+  persona?: PersonaInfo
   user?: UserInfo
   create_time: string
   update_time: string
+  plugin_id?: string | number
+  plugin?: PluginInfo
 }
 
 export interface ProductInfo {
@@ -92,11 +96,13 @@ export interface ProductInfo {
   status: number
   type: string
   level: number
+  sort: number
+  describe?: string
   create_time: string
   update_time: string
 }
 
-export interface TokenInfo {
+export interface AikeyInfo {
   id: number
   key: string
   host: string
@@ -104,6 +110,8 @@ export interface TokenInfo {
   models: string
   limit: number
   usage: number
+  type: string
+  check: number
   status: number
   create_time: string
   update_time: string
@@ -130,6 +138,23 @@ export interface YipayInfo {
   key: string
   return_url?: string
 }
+
+export interface JsPayInfo {
+	api: string
+	mchid: string | number
+	key: string
+	return_url?: string
+}
+
+
+export interface HpjPayInfo {
+	api: string
+	appid: string | number
+	key: string
+	return_url?: string
+}
+
+
 
 export interface PaymentInfo {
   id: number
@@ -172,4 +197,130 @@ export interface NotificationInfo {
   status: number
   create_time: string
   update_time: string
+}
+
+export interface InviteRecordInfo {
+  id: string
+  user_id: string
+  invite_code: string
+  superior_id: string
+  reward: string
+  reward_type: string
+  user_agent: string
+  remarks: string
+  user: UserInfo
+  superior: UserInfo
+  ip: string
+  status: number
+  create_time: string
+  update_time: string
+}
+
+export interface CashbackInfo {
+  id: string
+  user_id: string
+  benefit_id: string
+  pay_amount: string
+  commission_rate: string
+  commission_amount: string
+  remarks: string
+  order_id: number
+  status: number
+  create_time: string
+  update_time: string
+  user: UserInfo
+  benefit: UserInfo
+}
+
+export interface AmountDetailInfo {
+  id: string
+  user_id: string
+  correlation_id: number
+  original_amount: string
+  operate_amount: string
+  type: string
+  current_amount: string
+  remarks: string
+  status: number
+  create_time: string
+  update_time: string
+  user: UserInfo
+}
+
+export interface WithdrawalRecordInfo {
+  new_status?: number
+  id: number
+  user_id: string
+  amount: string
+  type: string
+  name: string
+  contact: string
+  account: string
+  remarks: string
+  message: string
+  ip: string
+  user_agent: string
+  status: number
+  create_time: string
+  update_time: string
+  user: UserInfo
+}
+
+export interface DialogInfo {
+  id: number | string
+  issue: string
+  answer: string
+  models: string
+  delay: number
+  status: number
+  create_time: string
+  update_time: string
+}
+
+
+export interface PersonaInfo {
+	id: string | number;
+	user_id?: string | number;
+	title: string;
+	avatar: string;
+	description?: string;
+  	system: number
+	context: string;
+	status: number;
+	create_time: string;
+	update_time: string;
+	user?: UserInfo;
+}
+
+
+export interface PluginInfo {
+	id: number;
+	user_id?: string | number;
+	name: string;
+	description: string;
+	avatar: string;
+	variables?: string;
+	function: string;
+	script: string;
+	status: number;
+	create_time: string;
+	update_time: string;
+	user?: UserInfo;
+}
+
+
+export interface DrawRecordInfo {
+	id: string;
+	user_id: string;
+	inset_image_url?: string;
+	prompt: string;
+	model: string;
+	images: string[];
+	params: string;
+	take_time: number;
+	size: string;
+	status: number;
+	create_time: string;
+	update_time: string;
+  user?: UserInfo
 }

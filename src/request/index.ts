@@ -1,5 +1,5 @@
 import { notification } from 'antd'
-import { userStore } from '@/store'
+import { chatStore, userStore } from '@/store'
 
 export type ResponseData<T> = {
   code: number
@@ -42,7 +42,7 @@ function correctHeaders(
 
 // 判断是否为Object
 const isPlainObject = (obj: any) => {
-  if (!obj || Object.prototype.toString.call(obj) !== '[object Object]') {
+  if (!obj || Object.prototype.toString.call(obj) !== '[object Object]' || obj instanceof FormData) {
     return false
   }
   const proto = Object.getPrototypeOf(obj)
@@ -78,8 +78,9 @@ const interceptorsResponse = async <T>(options: any, response: any): Promise<Res
   }
 
   if (data.code) {
-    if (response.status === 401) {
+    if (response.status === 401 && data.code === 4001) {
       userStore.getState().logout()
+      chatStore.getState().clearChats()
     }
     if (data.message) {
       notification.error({
